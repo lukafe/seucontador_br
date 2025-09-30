@@ -1,0 +1,21 @@
+name,team_name,skill,error_rate,wet_skill_bonus
+Max Verstappen,Red Bull,0.99,0.015,0.05
+Lando Norris,McLaren,0.98,0.018,0.04
+Charles Leclerc,Ferrari,0.97,0.022,0.03
+Oscar Piastri,McLaren,0.96,0.02,0.03
+Lewis Hamilton,Ferrari,0.95,0.016,0.05
+George Russell,Mercedes,0.93,0.025,0.03
+Fernando Alonso,Aston Martin,0.92,0.012,0.05
+Carlos Sainz,Williams,0.92,0.019,0.04
+Sergio Pérez,Red Bull,0.89,0.028,0.04
+Alexander Albon,Williams,0.89,0.024,0.02
+Kimi Antonelli,Mercedes,0.88,0.03,0.03
+Pierre Gasly,Alpine,0.87,0.028,0.02
+Yuki Tsunoda,Racing Bulls,0.86,0.035,0.01
+Nico Hülkenberg,Kick Sauber,0.85,0.021,0.02
+Esteban Ocon,Haas,0.84,0.033,0.03
+Daniel Ricciardo,Racing Bulls,0.82,0.031,0.04
+Valtteri Bottas,Kick Sauber,0.81,0.026,0.03
+Lance Stroll,Aston Martin,0.8,0.038,0.02
+Guanyu Zhou,Alpine,0.78,0.032,0.02
+Kevin Magnussen,Haas,0.79,0.036,0.02

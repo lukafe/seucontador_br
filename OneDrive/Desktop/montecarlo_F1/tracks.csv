@@ -1,0 +1,10 @@
+gp_name,overtake_difficulty,safety_car_prob,pace_factor,wet_race_prob
+Bahrain,0.5,0.6,1.0,0.01
+Monaco,0.98,0.95,0.98,0.2
+Silverstone,0.3,0.45,1.02,0.35
+Spa-Francorchamps,0.25,0.7,1.03,0.45
+Monza,0.2,0.5,1.04,0.15
+MarinaBay,0.9,1.0,0.98,0.25
+Interlagos,0.4,0.75,1.0,0.4
+Suzuka,0.4,0.5,1.01,0.3
+Jeddah,0.4,0.9,1.02,0.02

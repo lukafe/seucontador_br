@@ -1,0 +1,38 @@
+{
+  "gp_name": "MarinaBay",
+  "params": {
+    "n_sim": 1000000,
+    "seed": 290882,
+    "pace_driver_weight": 0.45,
+    "grid_noise": 0.1,
+    "race_noise": 0.22,
+    "sc_bunching_effect": 0.35,
+    "dnf_base": 0.06,
+    "wet_race_noise_increase": 0.12,
+    "wet_sc_prob_increase": 0.25,
+    "dnf_mech_base": 0.015,
+    "driver_error_wet_multiplier": 1.6,
+    "fastest_lap_temp": 0.35,
+    "fastest_lap_top10_bias": 1.35,
+    "quali_driver_weight": 0.6,
+    "quali_noise": 0.06,
+    "show_progress": false,
+    "use_color": true
+  },
+  "track": {
+    "gp_name": "MarinaBay",
+    "overtake_difficulty": 0.9,
+    "safety_car_prob": 0.7,
+    "pace_factor": 0.98,
+    "wet_race_prob": 0.25
+  },
+  "diagnostics": {
+    "wet_races_fraction": 0.250624,
+    "avg_dnf_rate": 0.07230095,
+    "avg_sc_rate": 0.762716,
+    "total_sc_events": 762716,
+    "total_dnfs": 1446019,
+    "total_starts": 20000000
+  },
+  "timestamp": "2025-09-29T10:48:16.262212Z"
+}
