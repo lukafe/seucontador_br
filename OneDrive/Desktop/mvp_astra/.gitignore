@@ -1,0 +1,90 @@
+# Arquivos de sistema Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+*.lnk
+*.tmp
+*.temp
+
+# Arquivos de backup e auto-save
+*.bak
+*.backup
+*~
+*.swp
+*.swo
+*~
+
+# Arquivos de log
+*.log
+
+# Arquivos de configuração de IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Arquivos Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Banco de dados
+*.db
+*.sqlite
+*.sqlite3
+
+# Arquivos de dados temporários
+*.csv
+*.xlsx
+*.txt
+*.docx
+*.pdf
+
+# Arquivos de imagem
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.bmp
+*.ico
+
+# Arquivos de vídeo e áudio
+*.mp4
+*.avi
+*.mov
+*.mp3
+*.wav
+
+# Arquivos de configuração
+*.ini
+*.cfg
+*.conf
+
+# Arquivos específicos do projeto (manter apenas mvp.py)
+A_company.txt
+B_company.txt
+C_company.txt
+chroma_db_mvp/
+*.exe
+*.msi
+*.lnk
