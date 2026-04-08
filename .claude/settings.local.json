@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx create-next-app@latest smart_caixa --typescript --tailwind --app --src-dir=no --use-npm --eslint --no-turbopack --import-alias \"@/*\")",
+      "Bash(npm install:*)",
+      "Bash(npx tsc:*)",
+      "Bash(find . -name \"*.tsx\" -not -path \"./node_modules/*\" -exec sed -i 's/formatter={\\(value: number\\)/formatter={\\(value\\)/g' {} +)",
+      "Bash(find . -name \"*.tsx\" -not -path \"./node_modules/*\" -exec sed -i 's/formatter={\\(value\\) =>/formatter={\\(value: unknown\\) =>/g' {} +)",
+      "Bash(find . -name \"*.tsx\" -not -path \"./node_modules/*\" -exec sed -i 's/value\\\\.toLocaleString/Number\\(value\\).toLocaleString/g; s/value\\\\.toFixed/Number\\(value\\).toFixed/g' {} +)",
+      "Bash(npm run:*)",
+      "Bash(git init:*)",
+      "Bash(git remote:*)",
+      "Bash(git status:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m ':*)",
+      "Bash(git branch:*)",
+      "Bash(git push:*)"
+    ]
+  }
+}
