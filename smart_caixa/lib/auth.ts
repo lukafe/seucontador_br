@@ -1,7 +1,9 @@
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-const allowedEmails = (process.env.ALLOWED_EMAILS || "")
+const DEFAULT_EMAILS = "lucasfeka@gmail.com,kaceccon@hotmail.com";
+
+const allowedEmails = (process.env.ALLOWED_EMAILS || DEFAULT_EMAILS)
   .split(",")
   .map((e) => e.trim().toLowerCase())
   .filter(Boolean);
