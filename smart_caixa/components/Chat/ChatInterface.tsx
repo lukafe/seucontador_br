@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { Send, Bot, User, Loader2 } from "lucide-react";
-import ReactMarkdown from "react-markdown";
+import Markdown from "@/components/Markdown";
 
 interface Message {
   role: "user" | "assistant";
@@ -129,8 +129,8 @@ export default function ChatInterface() {
                   )}
                 </div>
                 <div className="min-w-0 flex-1">
-                  <div className="prose prose-invert prose-sm max-w-none text-zinc-300">
-                    <ReactMarkdown>{msg.content}</ReactMarkdown>
+                  <div className="max-w-none">
+                    <Markdown>{msg.content}</Markdown>
                     {isLoading &&
                       i === messages.length - 1 &&
                       msg.role === "assistant" &&

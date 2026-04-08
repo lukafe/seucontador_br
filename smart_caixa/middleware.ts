@@ -1,17 +1,21 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { getToken } from "next-auth/jwt";
 
-export async function middleware(request: NextRequest) {
-  const token = await getToken({
-    req: request,
-    secret: process.env.NEXTAUTH_SECRET || "fallback-dev-secret-change-in-production",
-  });
+export function middleware(request: NextRequest) {
+  const token = request.cookies.get("smart-caixa-session")?.value;
 
   if (!token) {
-    const loginUrl = new URL("/login", request.url);
-    loginUrl.searchParams.set("callbackUrl", request.nextUrl.pathname);
-    return NextResponse.redirect(loginUrl);
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
+
+  // Basic validation - decode base64 and check structure
+  try {
+    const payload = JSON.parse(atob(token));
+    if (!payload.email) {
+      return NextResponse.redirect(new URL("/login", request.url));
+    }
+  } catch {
+    return NextResponse.redirect(new URL("/login", request.url));
   }
 
   return NextResponse.next();
@@ -25,5 +29,9 @@ export const config = {
     "/compare/:path*",
     "/health/:path*",
     "/assistant/:path*",
+    "/dre/:path*",
+    "/suppliers/:path*",
+    "/payroll/:path*",
+    "/goals/:path*",
   ],
 };

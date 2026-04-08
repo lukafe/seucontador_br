@@ -1,19 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import HealthScore from "@/components/HealthScore";
 import { calculateHealthScore, type MonthData, type Entry } from "@/lib/calculations";
 import { formatMonthYear } from "@/lib/format";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  ReferenceLine,
-} from "recharts";
+
+const ScoreEvolutionChart = dynamic(() => import("@/components/Charts/ScoreEvolutionChart"), { ssr: false });
 
 export default function HealthPage() {
   const [months, setMonths] = useState<MonthData[]>([]);
@@ -25,20 +18,22 @@ export default function HealthPage() {
     async function load() {
       try {
         const res = await fetch("/api/months");
-        const monthsData: MonthData[] = await res.json();
+        const monthsData = await res.json();
+        if (!Array.isArray(monthsData)) { setLoading(false); return; }
         const monthsAsc = [...monthsData].reverse();
         setMonths(monthsAsc);
 
         if (monthsAsc.length > 0) {
           const latest = monthsAsc[monthsAsc.length - 1];
           const entriesRes = await fetch(`/api/entries?monthId=${latest.id}`);
-          setCurrentEntries(await entriesRes.json());
+          const entriesData = await entriesRes.json();
+          if (Array.isArray(entriesData)) setCurrentEntries(entriesData);
 
-          // Calculate score history
           const history = [];
           for (const m of monthsAsc) {
             const eRes = await fetch(`/api/entries?monthId=${m.id}`);
             const eData = await eRes.json();
+            if (!Array.isArray(eData)) continue;
             const idx = monthsAsc.indexOf(m);
             const slice = monthsAsc.slice(0, idx + 1);
             const { score } = calculateHealthScore(slice, eData);
@@ -83,59 +78,20 @@ export default function HealthPage() {
       </div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        {/* Score */}
         <div className="rounded-xl border border-white/[0.06] bg-[#111] p-6">
           <HealthScore score={score} dimensions={dimensions} />
         </div>
 
-        {/* Score evolution */}
         {scoreHistory.length > 1 && (
           <div className="rounded-xl border border-white/[0.06] bg-[#111] p-6">
-            <h3 className="mb-4 text-sm font-medium text-zinc-400">
-              Evolução do Score
-            </h3>
-            <ResponsiveContainer width="100%" height={400}>
-              <LineChart data={scoreHistory}>
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
-                <XAxis
-                  dataKey="name"
-                  tick={{ fill: "#71717a", fontSize: 12 }}
-                  tickLine={false}
-                />
-                <YAxis
-                  domain={[0, 100]}
-                  tick={{ fill: "#71717a", fontSize: 12 }}
-                  tickLine={false}
-                />
-                <Tooltip
-                  contentStyle={{
-                    background: "#1a1a1a",
-                    border: "1px solid rgba(255,255,255,0.1)",
-                    borderRadius: "8px",
-                    color: "#fff",
-                  }}
-                  formatter={(value: unknown) => `${value}/100`}
-                />
-                <ReferenceLine y={70} stroke="#10b981" strokeDasharray="5 5" label={{ value: "Bom", fill: "#10b981", fontSize: 11 }} />
-                <ReferenceLine y={50} stroke="#f59e0b" strokeDasharray="5 5" label={{ value: "Atenção", fill: "#f59e0b", fontSize: 11 }} />
-                <Line
-                  type="monotone"
-                  dataKey="score"
-                  stroke="#3b82f6"
-                  strokeWidth={2}
-                  dot={{ fill: "#3b82f6", r: 4 }}
-                />
-              </LineChart>
-            </ResponsiveContainer>
+            <h3 className="mb-4 text-sm font-medium text-zinc-400">Evolução do Score</h3>
+            <ScoreEvolutionChart data={scoreHistory} />
           </div>
         )}
       </div>
 
-      {/* Dimension details */}
       <div className="rounded-xl border border-white/[0.06] bg-[#111] p-6">
-        <h3 className="mb-4 text-sm font-medium text-zinc-400">
-          Detalhamento por Dimensão
-        </h3>
+        <h3 className="mb-4 text-sm font-medium text-zinc-400">Detalhamento por Dimensão</h3>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
           {dimensions.map((dim) => (
             <div
@@ -149,15 +105,9 @@ export default function HealthPage() {
               }`}
             >
               <p className="text-sm font-medium text-zinc-300">{dim.name}</p>
-              <p
-                className={`mt-1 text-2xl font-bold ${
-                  dim.status === "good"
-                    ? "text-emerald-400"
-                    : dim.status === "warning"
-                      ? "text-amber-400"
-                      : "text-red-400"
-                }`}
-              >
+              <p className={`mt-1 text-2xl font-bold ${
+                dim.status === "good" ? "text-emerald-400" : dim.status === "warning" ? "text-amber-400" : "text-red-400"
+              }`}>
                 {dim.score}
               </p>
               <p className="mt-1 text-xs text-zinc-500">{dim.benchmark}</p>

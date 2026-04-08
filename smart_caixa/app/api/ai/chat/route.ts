@@ -6,6 +6,7 @@ export async function POST(request: NextRequest) {
   try {
     const { message, history } = await request.json();
     const sql = getDb();
+    if (!sql) return new Response(JSON.stringify({ error: "Banco não configurado" }), { status: 503, headers: { "Content-Type": "application/json" } });
 
     // Get all months for context
     const months = await sql`SELECT * FROM months ORDER BY month_year`;

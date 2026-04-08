@@ -1,8 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { signOut } from "next-auth/react";
+import { usePathname, useRouter } from "next/navigation";
 import {
   LayoutDashboard,
   Upload,
@@ -11,19 +10,33 @@ import {
   Activity,
   MessageSquare,
   LogOut,
+  Table2,
+  Truck,
+  Users,
+  Target,
 } from "lucide-react";
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-  { name: "Upload", href: "/upload", icon: Upload },
-  { name: "Histórico", href: "/month/list", icon: Calendar },
+  { name: "DRE", href: "/dre", icon: Table2 },
+  { name: "Fornecedores", href: "/suppliers", icon: Truck },
+  { name: "Pessoal", href: "/payroll", icon: Users },
+  { name: "Estratégico", href: "/goals", icon: Target },
   { name: "Comparativo", href: "/compare", icon: GitCompare },
   { name: "Saúde", href: "/health", icon: Activity },
+  { name: "Histórico", href: "/month/list", icon: Calendar },
+  { name: "Upload", href: "/upload", icon: Upload },
   { name: "Assistente IA", href: "/assistant", icon: MessageSquare },
 ];
 
 export default function Sidebar() {
   const pathname = usePathname();
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    await fetch("/api/auth/logout", { method: "POST" });
+    router.push("/login");
+  };
 
   return (
     <aside className="fixed left-0 top-0 z-40 flex h-screen w-64 flex-col border-r border-white/[0.06] bg-[#0a0a0a]">
@@ -59,7 +72,7 @@ export default function Sidebar() {
 
       <div className="border-t border-white/[0.06] p-3">
         <button
-          onClick={() => signOut({ callbackUrl: "/login" })}
+          onClick={handleLogout}
           className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-zinc-400 transition-colors hover:bg-white/[0.04] hover:text-white"
         >
           <LogOut className="h-5 w-5" />

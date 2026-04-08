@@ -4,6 +4,11 @@ import { parseExcel } from "@/lib/parser";
 
 export async function POST(request: NextRequest) {
   try {
+    const sql = getDb();
+    if (!sql) {
+      return NextResponse.json({ error: "DATABASE_URL não configurada. Configure nas variáveis de ambiente da Vercel." }, { status: 503 });
+    }
+
     const formData = await request.formData();
     const file = formData.get("file") as File;
     const monthYear = formData.get("monthYear") as string;
@@ -14,8 +19,6 @@ export async function POST(request: NextRequest) {
 
     const buffer = await file.arrayBuffer();
     const parsed = parseExcel(buffer);
-
-    const sql = getDb();
 
     // Check if month already exists
     const existing = await sql`SELECT id FROM months WHERE month_year = ${monthYear}`;

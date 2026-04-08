@@ -4,6 +4,7 @@ import { getDb } from "@/lib/db";
 export async function GET(request: NextRequest) {
   try {
     const sql = getDb();
+    if (!sql) return NextResponse.json([]);
     const { searchParams } = new URL(request.url);
     const monthId = searchParams.get("monthId");
     const categoria = searchParams.get("categoria");
@@ -56,6 +57,6 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(entries);
   } catch (error) {
     console.error("Entries fetch error:", error);
-    return NextResponse.json({ error: "Erro ao buscar lançamentos" }, { status: 500 });
+    return NextResponse.json([]);
   }
 }

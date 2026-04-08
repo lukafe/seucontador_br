@@ -52,47 +52,76 @@ body {
   animation: fadeIn 0.3s ease-out;
 }
 
-/* Prose styles for markdown */
-.prose-invert h1,
-.prose-invert h2,
-.prose-invert h3 {
+/* Markdown content styles */
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3 {
   color: #e5e5e5;
+  font-weight: 600;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
 }
 
-.prose-invert p {
+.markdown-content h1 { font-size: 1.25em; }
+.markdown-content h2 { font-size: 1.1em; }
+.markdown-content h3 { font-size: 1em; }
+
+.markdown-content p {
   color: #a1a1aa;
+  margin-bottom: 0.75em;
+  line-height: 1.6;
 }
 
-.prose-invert strong {
+.markdown-content strong {
   color: #e5e5e5;
 }
 
-.prose-invert table {
+.markdown-content table {
   width: 100%;
   border-collapse: collapse;
+  margin: 1em 0;
 }
 
-.prose-invert th,
-.prose-invert td {
+.markdown-content th,
+.markdown-content td {
   border: 1px solid rgba(255, 255, 255, 0.06);
   padding: 8px 12px;
   text-align: left;
 }
 
-.prose-invert th {
+.markdown-content th {
   background: rgba(255, 255, 255, 0.04);
   color: #e5e5e5;
   font-weight: 600;
 }
 
-.prose-invert ul,
-.prose-invert ol {
+.markdown-content ul,
+.markdown-content ol {
   padding-left: 1.5em;
+  margin-bottom: 0.75em;
+  color: #a1a1aa;
 }
 
-.prose-invert code {
+.markdown-content li {
+  margin-bottom: 0.25em;
+}
+
+.markdown-content code {
   background: rgba(255, 255, 255, 0.06);
   padding: 2px 6px;
   border-radius: 4px;
   font-size: 0.875em;
+}
+
+.markdown-content pre {
+  background: rgba(255, 255, 255, 0.04);
+  padding: 12px;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 0.75em 0;
+}
+
+.markdown-content a {
+  color: #10b981;
+  text-decoration: underline;
 }

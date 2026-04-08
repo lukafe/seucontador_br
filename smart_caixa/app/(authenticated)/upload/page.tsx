@@ -211,7 +211,7 @@ export default function UploadPage() {
               Gerando análise...
             </div>
           ) : (
-            <div className="prose prose-invert prose-sm mt-4 max-w-none">
+            <div className="mt-4">
               <pre className="whitespace-pre-wrap text-sm text-zinc-300">
                 {aiReport}
               </pre>

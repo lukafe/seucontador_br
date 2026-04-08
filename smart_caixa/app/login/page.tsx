@@ -1,6 +1,5 @@
 "use client";
 
-import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Loader2, AlertCircle } from "lucide-react";
@@ -16,17 +15,22 @@ export default function LoginPage() {
     setError("");
     setIsLoading(true);
 
-    const result = await signIn("credentials", {
-      email: email.trim(),
-      redirect: false,
-    });
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.trim() }),
+      });
 
-    setIsLoading(false);
-
-    if (result?.error) {
-      setError("Email não autorizado. Entre em contato com o administrador.");
-    } else {
-      router.push("/dashboard");
+      if (!res.ok) {
+        setError("Email não autorizado. Entre em contato com o administrador.");
+      } else {
+        router.push("/dashboard");
+      }
+    } catch {
+      setError("Erro ao conectar com o servidor.");
+    } finally {
+      setIsLoading(false);
     }
   };
 

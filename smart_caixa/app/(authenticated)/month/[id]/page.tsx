@@ -2,9 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import dynamic from "next/dynamic";
 import KPICard from "@/components/KPICard";
-import DailyRevenueChart from "@/components/Charts/DailyRevenueChart";
-import ExpenseCompositionChart from "@/components/Charts/ExpenseCompositionChart";
+
+const DailyRevenueChart = dynamic(() => import("@/components/Charts/DailyRevenueChart"), { ssr: false });
+const ExpenseCompositionChart = dynamic(() => import("@/components/Charts/ExpenseCompositionChart"), { ssr: false });
 import { formatCurrency, formatPercent, formatMonthYear, formatDate } from "@/lib/format";
 import {
   calculateCMV,
@@ -25,8 +27,6 @@ import {
   Bot,
   Loader2,
 } from "lucide-react";
-import ReactMarkdown from "react-markdown";
-
 export default function MonthDetailPage() {
   const params = useParams();
   const id = params.id as string;

@@ -23,7 +23,8 @@ export default function MonthListPage() {
   useEffect(() => {
     fetch("/api/months")
       .then((r) => r.json())
-      .then(setMonths)
+      .then((data) => { if (Array.isArray(data)) setMonths(data); })
+      .catch(() => {})
       .finally(() => setLoading(false));
   }, []);
 

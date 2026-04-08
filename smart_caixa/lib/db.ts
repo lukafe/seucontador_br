@@ -1,11 +1,10 @@
 import { neon } from "@neondatabase/serverless";
 
+const FALLBACK_DB_URL = "postgresql://neondb_owner:npg_bJMPAgIl61uR@ep-blue-sound-ans07b11-pooler.c-6.us-east-1.aws.neon.tech/neondb?sslmode=require";
+
 export function getDb() {
-  if (!process.env.DATABASE_URL) {
-    throw new Error("DATABASE_URL não configurada. Adicione nas variáveis de ambiente da Vercel.");
-  }
-  const sql = neon(process.env.DATABASE_URL);
-  return sql;
+  const url = process.env.DATABASE_URL || FALLBACK_DB_URL;
+  return neon(url);
 }
 
 export type SqlQuery = ReturnType<typeof neon>;
